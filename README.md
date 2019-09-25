@@ -1,0 +1,2 @@
+# GoLangSyntax
+ GoLang syntax check
