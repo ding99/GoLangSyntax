@@ -1,18 +1,15 @@
+//to double check
+
 package main
 
 import . "fmt"
-import . "strconv"
 
 func main(){
-  hashs()
-}
-
-func hashs(){
   getInstance()
   
-  put("a","a_out");Print(get("a"));dsp()
-  put("b","b_out");Print(get("b"));dsp()
-  put("p","p_out");Print(get("p"));dsp()
+  put("a","a_v");Print(get("a"));dsp()
+  put("b","b_v");Print(get("b"));dsp()
+  put("u","u_v");Print(get("u"));dsp()
 }
 
 type HashMap struct {
@@ -27,14 +24,15 @@ var table [16](*HashMap)
 func initTable(){ for i:= range table{ table[i] = &HashMap{"","",i,nil} } }
 
 func dsp() {
-  var count int = 0;
+  var count int = 0
   for i := range table {
     if len(table[i].key) > 0{
-      Print("{" + table[i].key + "," + table[i].value + "," + Itoa(table[i].hashCode) + "}")
+      Printf("{%d,%s,%s,%d,%d}",i,table[i].key,table[i].value ,table[i].hashCode,table[i].next)
+	  //if table[i].next == nil { Printf("<d>") }
 	  count++
 	}
   }
-  Println(" (",count,")");
+  Printf(" (%d)\n",count)
 }
 
 func getInstance() [16](*HashMap){ 
@@ -55,7 +53,7 @@ func genHashCode(k string) int{
   return hashCode
 }
 
-func indexTable(hashCode int) int { return hashCode % 6 }
+func indexTable(hashCode int) int { return hashCode % 16 }
 func indexNode(hashCode int) int { return hashCode >> 4 }
 
 func put(k string, v string) string{
@@ -64,6 +62,7 @@ func put(k string, v string) string{
   
   var tableIndex = indexTable(hashCode)
   var nodeIndex = indexNode(hashCode)
+  Printf("<%d-%d> ",nodeIndex,tableIndex);
   
   var headPtr [16](*HashMap) = getInstance()
   var headNode = headPtr[tableIndex]
