@@ -24,9 +24,24 @@ func main(){
   
   _,num,strs := numbers()
   Println(num,strs)
+  
+  constp()
 }
 
 func numbers()(int,int,string){
   a,b,c := 1,2,"strrrr"
   return a,b,c
+}
+
+func constp(){
+  
+  Println("-- const")
+  const LENGTH, WIDTH = 10,5
+  var area int
+  const a,b,c = 1,false,"str1"
+  
+  area = LENGTH * WIDTH
+  Printf("area : %d", area)
+  Println()
+  println(a,b,c)
 }
