@@ -1,9 +1,10 @@
 package main
 
-import ( . "fmt"; "math" )
+import ( . "fmt"; . "math" )
 
 func main(){
-  Println(math.Exp2(10)) //1024
+  //Println(math.Exp2(10)) //1024
+  Println(Exp2(10)) //1024
   Print("a", "b", 1, 2, 3, "c", "d", "\n")
   Println("a","b",1,2,3,"c","d")
   
