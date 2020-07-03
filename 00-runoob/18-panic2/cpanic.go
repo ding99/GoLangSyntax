@@ -8,7 +8,7 @@ func main(){
   defer func(){
     Println("OUTER: prepare recover")
 	if err := recover(); err != nil { Println("OUTER: %#v-%#v\n", "outer", err)
-	  //err was already caught by upper. no exception here, but run defer and its coming code
+	  //err was already caught by inner recover(). No any existing exception to be caught here
     } else { Println("OUTER: nothing to do") }
 	Println("OUTER: finish recover")
   }()
