@@ -1,9 +1,9 @@
 package main
 
-import ( . "fmt"; "math" )
+import ( . "fmt"; . "math" )
 
 func main(){
-  Println(math.Exp2(10)) //1024
+  Println(Exp2(10)) //1024
   Print("a", "b", 1, 2, 3, "c", "d", "\n")
   Println("a","b",1,2,3,"c","d")
   
@@ -41,7 +41,6 @@ func constp(){
   const a,b,c = 1,false,"str1"
   
   area = LENGTH * WIDTH
-  Printf("area : %d", area)
-  Println()
+  Printf("area : %d\n", area)
   println(a,b,c)
 }
