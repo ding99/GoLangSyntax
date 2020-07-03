@@ -9,6 +9,8 @@ func main(){
   defer Println("MAIN: defer 2")
   defer Println("MAIN: defer 3")
   fool()
+  Println("MAIN: 3")
+  defer Println("MAIN: defer 4")
 }
 
 func fool() {
@@ -27,6 +29,8 @@ FOOL: 2
 FOOL: defer 3
 FOOL: defer 2
 FOOL: defer 1
+MAIN: 3
+MAIN: defer 4
 MAIN: defer 3
 MAIN: defer 2
 MAIN: defer 1
