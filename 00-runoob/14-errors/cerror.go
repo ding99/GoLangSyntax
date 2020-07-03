@@ -15,22 +15,17 @@ func (de *DivideError) Error() string{
 
 func Divide(varDividee int, varDivider int) (result int, errMsg string){
   if varDivider == 0 {
-    dData := DivideError{
-	  dividee: varDividee,
-	  divider: varDivider,
-	}
+    dData := DivideError{ dividee: varDividee, divider: varDivider }
 	errorMsg := dData.Error()
 	return 0, errorMsg
-  } else {
-    return varDividee / varDivider, ""
-  }
+  } else { return varDividee / varDivider, "" }
 }
 
 func main(){
   if result, errorMsg := Divide(100,10); errorMsg == "" {
-    Println("100/10 = ", result)
+    Printf("(1) 100/10 = %d\n", result)
   }
   if _,errorMsg := Divide(100,0); errorMsg != "" {
-    Println("errorMsg is: ", errorMsg)
+    Println("(2) errorMsg is: ", errorMsg)
   }
 }
