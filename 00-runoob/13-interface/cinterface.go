@@ -50,7 +50,7 @@ type IFPhone interface{ call01(); call02() }
 
 type Phone1 struct { id int; name string; category_id int; category_name string }
 func (test Phone1) call01(){ Println("First class, First method ", Phone1{id:1,name:"laugh"}) }
-func (test Phone1) call02(){ Println("First class, Second method ", Phone1{id:1,name:"laugh",category_id:4,category_name:"names" }) }
+func (test Phone1) call02(){ Println("First class, Second method ", Phone1{1,"laugh",4,"names" }) }
 
 type Phone2 struct { member_id int; member_balance float32; member_sex bool; member_nick string }
 func (test Phone2) call01(){ Println("Second class, First method ", Phone2 {22,15.23,false,"laugh 18" }) }
@@ -64,8 +64,10 @@ func calls(){
 }
 
 type PhoneCell interface { call() string }
+
 type AndroidCell struct { brand string }
 type IPhoneCell struct { version string }
+
 func (android AndroidCell) call() string { return "I am Android " + android.brand }
 func (iphone IPhoneCell) call() string { return "I am IPhone " + iphone.version }
 func printCall(p PhoneCell) { Println(p.call() + ", I can call you!") }
