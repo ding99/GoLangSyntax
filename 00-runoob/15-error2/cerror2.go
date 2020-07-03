@@ -1,3 +1,5 @@
+//to check: Error is not used?
+
 package main
 
 import . "fmt"
@@ -5,7 +7,7 @@ import . "fmt"
 type DIV_ERR struct { etype int; v1 int; v2 int } //v1-dividee, v2-divider
 
 func (div_err DIV_ERR) Error() string{
-  if 0 == div_err.etype { return "divider_zero"
+  if 0 == div_err.etype { return "zero_divider"
   } else { return "unknown" }
 }
 
