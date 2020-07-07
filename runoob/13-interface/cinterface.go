@@ -10,17 +10,21 @@ func (nokiaPhone NokiaPhone) call(){ Println("I am Nokia, I can call you!") }
 type IPhone struct {}
 func (iPhone IPhone) call() { Println("I am iPhone, I can call you!") }
 
+func main(){
+  calling()
+  persons()
+  calls()
+  paras()
+  pointers()
+}
+
 func calling(){
   Println("-- Phones")
   var phone Phone
   
-  phone = new(NokiaPhone)
-  phone.call()
-  
-  phone = new(IPhone)
-  phone.call()
+  phone = new(NokiaPhone); phone.call()
+  phone = new(IPhone); phone.call()
 }
-
 
 type Person interface{ name() string; age() int }
 
@@ -34,16 +38,10 @@ func (man Man) age() int { return 27 }
 
 func persons(){
   Println("-- Person")
-  
   var person Person;
   
-  person = new(Woman);
-  Println(person.name())
-  Println(person.age())
-  
-  person = new(Man)
-  Println(person.name())
-  Println(person.age())
+  person = new(Woman); Print(person.name(),","); Println(person.age())
+  person = new(Man); Print(person.name(),","); Println(person.age())
 }
 
 type IFPhone interface{ call01(); call02() }
@@ -64,10 +62,8 @@ func calls(){
 }
 
 type PhoneCell interface { call() string }
-
 type AndroidCell struct { brand string }
 type IPhoneCell struct { version string }
-
 func (android AndroidCell) call() string { return "I am Android " + android.brand }
 func (iphone IPhoneCell) call() string { return "I am IPhone " + iphone.version }
 func printCall(p PhoneCell) { Println(p.call() + ", I can call you!") }
@@ -92,12 +88,4 @@ func pointers(){
   
   a := apple{"Fuji"}; Println(a.getName())
   a.setName("Gala"); Println(a.getName())
-}
-
-func main(){
-  calling()
-  persons()
-  calls()
-  paras()
-  pointers()
 }
