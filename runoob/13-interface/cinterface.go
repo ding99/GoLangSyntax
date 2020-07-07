@@ -1,6 +1,6 @@
 package main
 
-import . "fmt"
+import ."fmt"
 
 type Phone interface{ call() }
 
@@ -11,14 +11,14 @@ type IPhone struct {}
 func (iPhone IPhone) call() { Println("I am iPhone, I can call you!") }
 
 func main(){
-  calling()
+  phones()
   persons()
   calls()
   paras()
   pointers()
 }
 
-func calling(){
+func phones(){
   Println("-- Phones")
   var phone Phone
   
@@ -37,11 +37,11 @@ func (man Man) name() string { return "Jason" }
 func (man Man) age() int { return 27 }
 
 func persons(){
-  Println("-- Person")
+  Println("-- Persons")
   var person Person;
   
-  person = new(Woman); Print(person.name(),","); Println(person.age())
-  person = new(Man); Print(person.name(),","); Println(person.age())
+  person = new(Woman); Println(person.name(),",",person.age())
+  person = new(Man); Println(person.name(),",",person.age())
 }
 
 type IFPhone interface{ call01(); call02() }
@@ -55,7 +55,7 @@ func (test Phone2) call01(){ Println("Second class, First method ", Phone2 {22,1
 func (test Phone2) call02(){ Println("Second class, Second method ", Phone2{44,100,true,"steven" }) }
 
 func calls(){
-  Println("-- phones")
+  Println("-- Calls")
   var phone IFPhone
   phone = new(Phone1); phone.call01(); phone.call02()
   phone = new(Phone2); phone.call01(); phone.call02()
@@ -69,11 +69,9 @@ func (iphone IPhoneCell) call() string { return "I am IPhone " + iphone.version 
 func printCall(p PhoneCell) { Println(p.call() + ", I can call you!") }
 
 func paras(){
-  Println("-- parameters")
-  var vivo = AndroidCell{ brand:"Vivo" }
-  var hw = AndroidCell{ "HuaWei" }
-  i7 := IPhoneCell{ "7 Plus" }
-  ix := IPhoneCell{ "X" }
+  Println("-- Parameters")
+  var vivo, hw = AndroidCell{ brand:"Vivo" }, AndroidCell{ "HuaWei" }
+  i7, ix := IPhoneCell{ "7 Plus" }, IPhoneCell{ "X" }
   
   printCall(vivo); printCall(hw); printCall(i7); printCall(ix)
 }
@@ -84,7 +82,7 @@ func (a *apple) getName() string { return a.name }
 func (a *apple) setName(name string){ a.name = name }
 
 func pointers(){
-  Println("-- pointers")
+  Println("-- Pointers")
   
   a := apple{"Fuji"}; Println(a.getName())
   a.setName("Gala"); Println(a.getName())
