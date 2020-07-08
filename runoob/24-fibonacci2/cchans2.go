@@ -16,7 +16,7 @@ func fibonacci(n int, c chan int){
   
   for i := 0; i < n; i++{
     c <- x
-	Println("sub: ", time.Now())
+	Println("sub: ", time.Now(), x, "-", i)
 	time.Sleep(50)
 	x, y = y, x+y
   }
