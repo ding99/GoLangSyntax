@@ -1,51 +1,45 @@
 package main
 
-import ( ."fmt"; ."time" )
+import ( ."fmt"; "golang.org/x/tour/tree" )
 
 func main(){
-	selects()
-	defaultselect()
-}
-	
-func selects() {
-	Println("-- select")
-	c := make(chan int)
-	quit := make(chan int)
-	
-	go func() {
-		for i := 0; i < 10; i++ { Print(<-c, ",") }
-		Println()
-		quit <- 0
-	}()
-	
-	fibonacci(c, quit)
+	trees01()
 }
 
-func fibonacci(c, quit chan int) {
-	x, y := 0, 1
-	for {
-		select {
-		case c <- x: x, y = y, x+y
-		case <-quit: Println("quit"); return
-		}
+func trees01(){
+	Println("-- walk and same")
+	ch := make(chan int)
+	go Walk(tree.New(1), ch)
+	Println(Same(tree.New(1), tree.New(2)))
+	Println(Same(tree.New(1), tree.New(1)))
+	Println(Same(tree.New(2), tree.New(1)))
+}
+	
+// Walk walks the tree t sending all values
+// from the tree to the channel ch.
+func Walk(t *tree.Tree, ch chan int) {
+	WalkRecursive(t, ch)
+	close(ch)
+}
+
+func WalkRecursive(t *tree.Tree, ch chan int){
+	if t != nil {
+		WalkRecursive(t.Left, ch)
+		ch <- t.Value
+		WalkRecursive(t.Right, ch)
 	}
 }
 
-func defaultselect() {
-	Println("-- Default selectoin")
-	
-	tick := Tick(100 * Millisecond)
-	boom := After(500 * Millisecond)
+// Same determines whether the trees
+// t1 and t2 contain the same values.
+func Same(t1, t2 *tree.Tree) bool {
+	ch1, ch2 := make(chan int), make(chan int)
+	go Walk(t1, ch1); go Walk(t2, ch2)
 	for {
-		select {
-		case <-tick:
-			Println("tick.")
-		case <-boom:
-			Println("BOOM!")
-			return
-		default:
-			Println("    .")
-			Sleep(50 * Millisecond)
-		}
+		n1, ok1 := <- ch1
+		n2, ok2 := <- ch2
+		if ok1 != ok2 || n1 != n2 { return false }
+		if !ok1 { break }
 	}
+	return true
 }
