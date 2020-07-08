@@ -1,10 +1,11 @@
 package main
 
-import ( "fmt"; "io"; "strings"; "golang.org/x/tour/reader" )
+import ( "fmt"; "io"; "os"; "strings"; "golang.org/x/tour/reader" )
 
 func main() {
 	read()
 	infinite()
+	rot13()
 }
 
 func read() {
@@ -23,7 +24,7 @@ func read() {
 }
 
 func infinite(){
-	fmt.Println("-- Reader type that emits an infinite stream of 'A'")
+	fmt.Println("-- Reader type that emits an 'infinite' stream of 'A'")
 	reader.Validate(MyReader{})
 }
 
@@ -38,4 +39,26 @@ func (m MyReader) Read(b []byte) (int, error){
 	fmt.Println("size of b[]: ", len(b))
 	if(n + len(b) > ncon) { b[ncon - n] = 'B' } else { n += len(b) }
 	return len(b),nil
+}
+
+type rot13Reader struct { r io.Reader }
+
+func rot13(){
+	fmt.Println("-- rot13Reader");
+	s := strings.NewReader("Lbh abcd efgh afdasfasd")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, &r)
+}
+
+func (rot *rot13Reader) Read(b []byte) (read int, err error){
+	read, err = rot.r.Read(b)
+	for i := 0; i < read; i++ { b[i] = rot13byte(b[i]) }
+	return
+}
+
+func rot13byte(b byte) byte {
+    s := rune(b)
+    if s >= 'a' && s < 'n' || s >= 'A' && s < 'N' { b += 13 }
+    if s > 'm' && s <= 'z' || s > 'M' && s <= 'Z' { b -= 13 }
+    return b
 }
